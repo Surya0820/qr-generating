@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Family Info QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 30px;
+        }
+        #qrcode {
+            margin-top: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Family Info QR Code Generator</h1>
+
+    <!-- Input Fields -->
+    <input type="text" id="father" placeholder="Enter Father's Name"><br>
+    <input type="text" id="mother" placeholder="Enter Mother's Name"><br>
+    <input type="text" id="children" placeholder="Enter Children's Name(s)"><br>
+    <input type="tel" id="phone" placeholder="Enter Phone Number"><br>
+    <input type="text" id="address" placeholder="Enter Address"><br>
+
+    <button onclick="generateQRCode()">Generate QR Code</button>
+
+    <div id="qrcode"></div>
+
+    <!-- QRCode.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
+    <script>
+        function generateQRCode() {
+            const father = document.getElementById("father").value.trim();
+            const mother = document.getElementById("mother").value.trim();
+            const children = document.getElementById("children").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const address = document.getElementById("address").value.trim();
+
+            const qrcodeContainer = document.getElementById("qrcode");
+            qrcodeContainer.innerHTML = ""; // Clear previous QR code
+
+            // Check if any input is filled
+            if (father || mother || children || phone || address) {
+                const combinedText = 
+                    `Father's Name: ${father}\n` +
+                    `Mother's Name: ${mother}\n` +
+                    `Children: ${children}\n` +
+                    `Phone: ${phone}\n` +
+                    `Address: ${address}`;
+
+                new QRCode(qrcodeContainer, {
+                    text: combinedText,
+                    width: 200,
+                    height: 200
+                });
+            } else {
+                alert("Please fill in at least one field!");
+            }
+        }
+    </script>
+
+</body>
+</html>
